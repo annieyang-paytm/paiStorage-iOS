@@ -1,0 +1,191 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name PaiStorage
+import CommonCrypto
+import Foundation
+import Security
+import Swift
+@_hasMissingDesignatedInitializers public class PSEKeychain {
+  convenience public init()
+  convenience public init(storageID: Swift.String)
+  convenience public init(storageID: Swift.String, accessGroup: Swift.String? = nil, itemType: PaiStorage.PSEKeychain.ItemType = .default)
+  public subscript(key: Swift.String, encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) -> Swift.String? {
+    get
+    set
+  }
+  public subscript(string key: Swift.String, encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) -> Swift.String? {
+    get
+    set
+  }
+  public subscript(data key: Swift.String, encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) -> Foundation.Data? {
+    get
+    set
+  }
+  public subscript<T>(codable key: Swift.String, encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) -> T? where T : Swift.Decodable, T : Swift.Encodable {
+    get
+    set
+  }
+  public func string(forKey key: Swift.String, encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) throws -> Swift.String?
+  public func data(forKey key: Swift.String, encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) throws -> Foundation.Data?
+  public func object<T>(forKey key: Swift.String, encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) throws -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public func set(_ value: Swift.String, forKey key: Swift.String, using encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) throws
+  public func set(_ value: Foundation.Data, forKey key: Swift.String, using encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) throws
+  public func set<T>(_ value: T, forKey key: Swift.String, using encryption: PaiStorage.PSEKeychain.EncryptionMethod = .none) throws where T : Swift.Decodable, T : Swift.Encodable
+  public func remove(_ key: Swift.String) throws
+  public func removeAll() throws
+  public func contains(_ key: Swift.String) throws -> Swift.Bool
+  @objc deinit
+}
+extension PSEKeychain {
+  public enum ItemType {
+    public static let `default`: PaiStorage.PSEKeychain.ItemType
+    case localEncryptedItem
+    case internetPassword
+    public var rawValue: Swift.String {
+      get
+    }
+    public static func == (a: PaiStorage.PSEKeychain.ItemType, b: PaiStorage.PSEKeychain.ItemType) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum EncryptionMethod {
+    case none
+    case AES128
+    case AES192
+    case AES256
+    case RSA
+    public static func == (a: PaiStorage.PSEKeychain.EncryptionMethod, b: PaiStorage.PSEKeychain.EncryptionMethod) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+}
+@_hasMissingDesignatedInitializers public class PSEStorageManager {
+  public static let shared: PaiStorage.PSEStorageManager
+  @objc deinit
+}
+public enum KeychainError : Swift.Error {
+  case convertToDataFailed
+  case builtInError(statusCode: Darwin.OSStatus)
+  case corruptedData
+  case encryptionError(description: Swift.String)
+}
+@_hasMissingDesignatedInitializers public class PSELocalKeychain {
+  convenience public init()
+  convenience public init(account: Swift.String)
+  convenience public init(account: Swift.String, accessGroup: Swift.String? = nil)
+  public subscript(key: Swift.String) -> Swift.String? {
+    get
+    set
+  }
+  public func string(forKey key: Swift.String) throws -> Swift.String?
+  public func data(forKey key: Swift.String) throws -> Foundation.Data?
+  public func object<T>(forKey key: Swift.String) throws -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public func set(_ value: Swift.String, forKey key: Swift.String) throws
+  public func set(_ value: Foundation.Data, forKey key: Swift.String) throws
+  public func set<T>(_ value: T, forKey key: Swift.String) throws where T : Swift.Decodable, T : Swift.Encodable
+  public func remove(_ key: Swift.String) throws
+  public func removeAll() throws
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class PSEUserDefaults {
+  public enum Suite {
+    case standard
+    case shared(appGroupID: Swift.String)
+    public init?(appGroupID: Swift.String)
+  }
+  public static func hasKey<T>(_ key: PaiStorage.PSEUserDefaults.Key<T>) -> Swift.Bool where T : Swift.Decodable, T : Swift.Encodable
+  public static func hasKey(_ keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Bool
+  public static func removeValue<T>(forKey key: PaiStorage.PSEUserDefaults.Key<T>) where T : Swift.Decodable, T : Swift.Encodable
+  public static func removeValue(forKey keyString: Swift.String, from suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func reset(suite: PaiStorage.PSEUserDefaults.Suite)
+  public static func integer(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Int
+  public static func bool(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Bool
+  public static func float(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Float
+  public static func double(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Double
+  public static func string(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.String?
+  public static func data(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Foundation.Data?
+  public static func date(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Foundation.Date?
+  public static func url(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Foundation.URL?
+  public static func array<T>(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> [T]? where T : Swift.Decodable, T : Swift.Encodable
+  public static func dictionary<K, V>(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> [K : V]? where K : Swift.Decodable, K : Swift.Encodable, K : Swift.Hashable, V : Swift.Decodable, V : Swift.Encodable
+  public static func codableObject<T>(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public static func object(forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Any?
+  public static func set(_ value: Swift.Int, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func set(_ value: Swift.Bool, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func set(_ value: Swift.Float, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func set(_ value: Swift.Double, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func set(_ value: Swift.String?, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func set(_ value: Foundation.Data?, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func set(_ value: Foundation.Date?, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func set(_ value: Foundation.URL?, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard)
+  public static func set<T>(_ value: [T]?, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) where T : Swift.Decodable, T : Swift.Encodable
+  public static func set<K, V>(_ value: [K : V]?, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) where K : Swift.Decodable, K : Swift.Encodable, K : Swift.Hashable, V : Swift.Decodable, V : Swift.Encodable
+  public static func set<T>(_ value: T?, forKey keyString: Swift.String, in suite: PaiStorage.PSEUserDefaults.Suite = .standard) where T : Swift.Decodable, T : Swift.Encodable
+  public static subscript<T>(key: PaiStorage.PSEUserDefaults.Key<T>) -> T? where T : Swift.Decodable, T : Swift.Encodable {
+    get
+    set
+  }
+  public static subscript(integer keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Int {
+    get
+    set
+  }
+  public static subscript(bool keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Bool {
+    get
+    set
+  }
+  public static subscript(float keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Float {
+    get
+    set
+  }
+  public static subscript(double keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.Double {
+    get
+    set
+  }
+  public static subscript(string keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Swift.String? {
+    get
+    set
+  }
+  public static subscript(data keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Foundation.Data? {
+    get
+    set
+  }
+  public static subscript(url keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Foundation.URL? {
+    get
+    set
+  }
+  public static subscript(date keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> Foundation.Date? {
+    get
+    set
+  }
+  public static subscript<T>(array keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> [T]? where T : Swift.Decodable, T : Swift.Encodable {
+    get
+    set
+  }
+  public static subscript<K, V>(dictionary keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> [K : V]? where K : Swift.Decodable, K : Swift.Encodable, K : Swift.Hashable, V : Swift.Decodable, V : Swift.Encodable {
+    get
+    set
+  }
+  public static subscript<T>(codable keyString: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite = .standard) -> T? where T : Swift.Decodable, T : Swift.Encodable {
+    get
+    set
+  }
+  @objc deinit
+}
+extension PSEUserDefaults {
+  @_hasMissingDesignatedInitializers public class Keys {
+    @objc deinit
+  }
+  @_inheritsConvenienceInitializers final public class Key<T> : PaiStorage.PSEUserDefaults.Keys where T : Swift.Decodable, T : Swift.Encodable {
+    required public init(name: Swift.String, suite: PaiStorage.PSEUserDefaults.Suite)
+    convenience public init(name: Swift.String, defaultValue: T, suite: PaiStorage.PSEUserDefaults.Suite)
+    @objc deinit
+  }
+}
+extension PaiStorage.PSEKeychain.ItemType : Swift.Equatable {}
+extension PaiStorage.PSEKeychain.ItemType : Swift.Hashable {}
+extension PaiStorage.PSEKeychain.EncryptionMethod : Swift.Equatable {}
+extension PaiStorage.PSEKeychain.EncryptionMethod : Swift.Hashable {}
